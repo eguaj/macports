@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+
+name                apt-dater
+version             0.9.0
+license             GPL
+categories          sysutils
+maintainers         nomaintainer
+description         Remotely install/upgrade packages on systems using apt, rug or yum package managers
+long_description \
+    apt-dater provides an ncurses frontend for managing package \
+    updates on a large number of remote hosts using SSH. It supports \
+    Debian-based managed hosts as well as rug (e.g. openSUSE) and yum \
+    (e.g. CentOS) based systems.
+homepage            http://www.ibh.de/apt-dater/
+platforms           darwin
+license             GPL
+
+master_sites        sourceforge
+
+checksums           rmd160 db10505daee5e8ec7b2e30c22fcb279f03c3e999 \
+                    sha256 10b8335c156dabae249aa071cf8689900fae325c2e9540e36a840a2a77d3eeb4
+
+depends_lib         port:glib2 \
+                    port:libxml2 \
+                    port:ncurses \
+                    port:popt
+
+configure.args      --mandir=${prefix}/share/man

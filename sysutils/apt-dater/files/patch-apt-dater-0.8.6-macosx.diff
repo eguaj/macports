@@ -1,0 +1,53 @@
+diff -ur src/Makefile.am.orig src/Makefile.am
+--- src/Makefile.am.orig	2011-09-27 15:45:43.000000000 +0200
++++ src/Makefile.am	2012-02-13 11:21:18.000000000 +0100
+@@ -37,6 +37,6 @@
+ apt_dater_LDADD = $(GLIB_LIBS) $(TCL_LIBS) $(LIBXML2_LIBS)
+ 
+ AM_CFLAGS = -Wall -DPKGLIBDIR='"'$(pkglibdir)'"'
+-AM_LDFLAGS = -Wl,--as-needed
++AM_LDFLAGS = -lpopt
+ 
+ INCLUDES = $(GLIB_CFLAGS) $(TCL_CFLAGS) $(LIBXML2_CFLAGS)
+diff -ur src/Makefile.in.orig src/Makefile.in
+--- src/Makefile.in.orig	2011-09-27 15:45:43.000000000 +0200
++++ src/Makefile.in	2012-02-13 13:33:20.000000000 +0100
+@@ -228,7 +228,7 @@
+ 
+ apt_dater_LDADD = $(GLIB_LIBS) $(TCL_LIBS) $(LIBXML2_LIBS)
+ AM_CFLAGS = -Wall -DPKGLIBDIR='"'$(pkglibdir)'"'
+-AM_LDFLAGS = -Wl,--as-needed
++AM_LDFLAGS = -lpopt
+ INCLUDES = $(GLIB_CFLAGS) $(TCL_CFLAGS) $(LIBXML2_CFLAGS)
+ all: all-am
+ 
+Only in apt-dater-0.8.6/src: apt-dater
+diff -ur src/apt-dater.c.orig src/apt-dater.c
+--- src/apt-dater.c.orig	2011-09-27 15:45:43.000000000 +0200
++++ src/apt-dater.c	2012-02-13 13:36:08.000000000 +0100
+@@ -179,12 +179,6 @@
+ #ifdef FEAT_XMLREPORT
+  if(!report) {
+ #endif
+-   /* Test if we are the owner of the TTY or die. */
+-   if(g_access("/proc/self/fd/0", R_OK|W_OK)) {
+-     g_error(_("Cannot open your terminal /proc/self/fd/0 - please check."));
+-     exit(EXIT_FAILURE);
+-   }
+-
+    getOldestMtime(hosts);
+ 
+    doUI(hosts);
+diff -ur src/stats.c src/stats.c
+--- src/stats.c.orig	2011-09-27 15:45:43.000000000 +0200
++++ src/stats.c	2012-02-13 11:33:07.000000000 +0100
+@@ -96,6 +96,9 @@
+     if(iostatus == G_IO_STATUS_ERROR || iostatus == G_IO_STATUS_AGAIN)
+      break;
+ 
++    if(*buf == 0)
++     condition = G_IO_HUP;
++
+     if(fwrite(buf, sizeof(gchar), bytes, ((HostNode *) n)->fpstat) != bytes)
+ 	break;
+ 
