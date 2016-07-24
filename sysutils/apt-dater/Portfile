@@ -4,7 +4,7 @@
 PortSystem          1.0
 
 name                apt-dater
-version             0.9.0
+version             1.0.2
 license             GPL
 categories          sysutils
 maintainers         nomaintainer
@@ -18,10 +18,13 @@ homepage            http://www.ibh.de/apt-dater/
 platforms           darwin
 license             GPL
 
-master_sites        sourceforge
+master_sites        https://github.com/DE-IBH/apt-dater/archive/v${version}.tar.gz?dummy=
 
-checksums           rmd160 db10505daee5e8ec7b2e30c22fcb279f03c3e999 \
-                    sha256 10b8335c156dabae249aa071cf8689900fae325c2e9540e36a840a2a77d3eeb4
+checksums           rmd160 e8e426da57ab0a9486de382ca7fb80e48fc8958e \
+                    sha256 4d01e734f4dac32ff2eb279e6493a1019f2c2fce0e35cea48df027a593df0355
+
+use_autoreconf      yes
+patchfiles          patch-apt-dater-1.0.2-macports.diff
 
 depends_lib         port:glib2 \
                     port:libxml2 \

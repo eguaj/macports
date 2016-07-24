@@ -1,0 +1,11 @@
+--- etc/Makefile.am.orig
++++ etc/Makefile.am
+@@ -1,6 +1,8 @@
+ 
+ EXTRA_DISTS=apt-dater.xml hosts.xml
+ 
++DESTDIR=$(prefix)
++
+ cmd: cmd
+ 
+ install-exec-hook:
