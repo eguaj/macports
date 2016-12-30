@@ -6,5 +6,5 @@ My local MacPorts repository
 content
 =======
 
-* sysutils/apt-dater (0.9.0)
+* sysutils/apt-dater (1.0.3)
 
