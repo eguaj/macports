@@ -29,6 +29,7 @@ use_autoreconf      yes
 depends_lib         port:glib2 \
                     port:libxml2 \
                     port:ncurses \
-                    port:popt
+                    port:popt \
+                    port:pkgconfig
 
 configure.args      --mandir=${prefix}/share/man
